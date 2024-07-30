@@ -93,5 +93,5 @@ rebuild port file actualFile targets = sendCommandR port (RebuildCmd file actual
 usages :: Int -> String -> Namespace -> String -> Cmd (Array TypePosition)
 usages port file ns ident = sendCommand port (Usages file ns ident)
 
-focus :: Int -> Array String -> Cmd String
+focus :: Int -> Array String -> Cmd Message
 focus port ms = sendCommand port (Focus ms)
