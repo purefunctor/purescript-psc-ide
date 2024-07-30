@@ -133,6 +133,7 @@ data Command =
   | ImportCmd FileName (Maybe FileName) (Array Filter) ImportCommand
   | RebuildCmd String (Maybe FileName) (Maybe (Array CodegenTarget))
   | Usages String Namespace String
+  | Focus (Array String)
 
 data ListType = LoadedModules | Imports String | AvailableModules
 data Namespace = NSValue | NSType | NSKind 
@@ -252,6 +253,11 @@ instance encodeCommand :: EncodeJson Command where
       "module" := encodeJson mod
       ~> "namespace" := encodeJson ns
       ~> "identifier" := encodeJson ident
+      ~> jsonEmptyObject
+    )
+  encodeJson (Focus modules) =
+    commandWrapper "focus" (
+      "modules" := encodeJson modules
       ~> jsonEmptyObject
     )
 
